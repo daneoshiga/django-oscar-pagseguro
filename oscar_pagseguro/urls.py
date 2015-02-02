@@ -10,4 +10,7 @@ urlpatterns = patterns('',
     url(r'^checkout/payment-details/$',
         SuccessResponseView.as_view(preview=True),
         name='pagseguro-success-response'),
+    url(r'^checkout/preview/$',
+        SuccessResponseView.as_view(preview=True),
+        name='pagseguro-success-response'),
 )
