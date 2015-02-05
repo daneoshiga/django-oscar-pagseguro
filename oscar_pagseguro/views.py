@@ -51,6 +51,7 @@ class SuccessResponseView(PaymentDetailsView):
 
         source_type, __ = models.SourceType.objects.get_or_create(
             name="Pagseguro")
+
         source = models.Source(
             source_type=source_type,
             amount_allocated=total.incl_tax,
