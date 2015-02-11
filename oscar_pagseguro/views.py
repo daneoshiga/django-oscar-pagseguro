@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.http import HttpResponse
-from django.views.generic import RedirectView, View
+from django.views.generic import View
+from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
 import six
 
 from oscar.apps.payment import models
-from oscar.apps.payment.exceptions import RedirectRequired
 from oscar.core.loading import get_class
 
 from pagseguro.api import PagSeguroItem, PagSeguroApi
@@ -15,33 +15,6 @@ from pagseguro.api import PagSeguroItem, PagSeguroApi
 PaymentDetailsView = get_class('checkout.views', 'PaymentDetailsView')
 OrderPlacementMixin = get_class('checkout.mixins', 'OrderPlacementMixin')
 CheckoutSessionMixin = get_class('checkout.session', 'CheckoutSessionMixin')
-
-
-class PagseguroRedirectView(CheckoutSessionMixin, RedirectView):
-    permanent = False
-
-    def get_redirect_url(self, *args, **kwargs):
-
-        basket = self.request.basket
-        pagseguro_api = PagSeguroApi(reference=basket.id)
-
-        import ipdb
-        ipdb.set_trace()
-
-        # TODO: add the options selected on description
-
-        for line in basket.all_lines():
-            item = PagSeguroItem(
-                id=line.pk,
-                description=line.description,
-                amount='{0:.2f}'.format(line.stockrecord.price_excl_tax),
-                quantity=line.quantity
-            )
-            pagseguro_api.add_item(item)
-
-        data = pagseguro_api.checkout()
-
-        return data['redirect_url']
 
 
 class SuccessResponseView(PaymentDetailsView):
@@ -61,6 +34,26 @@ class SuccessResponseView(PaymentDetailsView):
         # Record payment event
         self.add_payment_event('pre-auth', total.incl_tax)
 
+    def handle_successful_order(self, order):
+        super(SuccessResponseView, self).handle_successful_order(order)
+
+        reference = order.number
+
+        pagseguro_api = PagSeguroApi(reference=reference)
+
+        for line in order.lines.all():
+            item = PagSeguroItem(
+                id=line.pk,
+                description=line.description,
+                amount='{0:.2f}'.format(line.stockrecord.price_excl_tax),
+                quantity=line.quantity
+            )
+            pagseguro_api.add_item(item)
+
+        data = pagseguro_api.checkout()
+
+        return redirect(data['redirect_url'])
+
 
 class ReceiveNotification(OrderPlacementMixin, View):
 
@@ -69,8 +62,6 @@ class ReceiveNotification(OrderPlacementMixin, View):
         return super(ReceiveNotification, self).dispatch(*args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        import ipdb
-        ipdb.set_trace()
         notification_code = self.request.POST.get('notificationCode', None)
         notification_type = self.request.POST.get('notificationType', None)
 
