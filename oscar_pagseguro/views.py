@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.http import HttpResponse
-from django.views.generic import View
 from django.shortcuts import redirect
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
-
-import six
 
 from oscar.apps.payment import models
 from oscar.core.loading import get_class
@@ -53,23 +47,3 @@ class SuccessResponseView(PaymentDetailsView):
         data = pagseguro_api.checkout()
 
         return redirect(data['redirect_url'])
-
-
-class ReceiveNotification(OrderPlacementMixin, View):
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, *args, **kwargs):
-        return super(ReceiveNotification, self).dispatch(*args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        notification_code = self.request.POST.get('notificationCode', None)
-        notification_type = self.request.POST.get('notificationType', None)
-
-        if notification_code and notification_type == 'transaction':
-            pagseguro_api = PagSeguroApi()
-            response = pagseguro_api.get_notification(notification_code)
-
-            if response.status_code == 200:
-                return HttpResponse(six.b('Notificação recebida com sucesso.'))
-
-        return HttpResponse(six.b('Notificação inválida.'), status=400)
