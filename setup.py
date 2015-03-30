@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-oscar-pagseguro',
-    version='0.0.1',
+    version='0.0.2',
     url='',
     author="Danilo Shiga",
     author_email="daniloshiga@gmail.com",
