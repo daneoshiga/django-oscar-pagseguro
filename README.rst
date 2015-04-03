@@ -41,6 +41,7 @@ Usage
 
     - And have a oscar order status pipeline that matches Pagseguro one:
 
+    ```
     OSCAR_ORDER_STATUS_PIPELINE = {
         'Aguardando pagamento': ('Paga', u'Em analíse', 'Cancelada'),
         u'Em analíse': ('Paga', 'Cancelada'),
@@ -50,6 +51,7 @@ Usage
         'Devolvida': (),
         'Cancelada': (),
     }
+    ```
 
 TODO
 ----
