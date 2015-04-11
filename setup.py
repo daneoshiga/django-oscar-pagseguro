@@ -16,9 +16,10 @@ setup(
     packages=find_packages(exclude=['sandbox*', 'tests*']),
     include_package_data=True,
     install_requires=[
+        "django-oscar>=0.6",
+        'django-pagseguro2>=1.0',
     ],
     extras_require={
-        'oscar': ["django-oscar>=0.6"]
     },
     # See http://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
