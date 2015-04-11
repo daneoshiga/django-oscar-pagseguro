@@ -30,28 +30,29 @@ Usage
 
     pip install django-oscar-pagseguro
 
-    - Add the pagseguro package to the INSTALLED_APPS:
-    INSTALLED_APPS = [
-    ...
-    pagseguro,
-    ]
+    - Add the pagseguro package to the INSTALLED_APPS::
 
-    - Add the following url to the urls.py of the django-oscar project:
-    url(r'^', include('oscar_pagseguro.urls')),
+        INSTALLED_APPS = [
+        ...
+        pagseguro,
+        ]
 
-    - And have a oscar order status pipeline that matches Pagseguro one:
+    - Add the following url to the urls.py of the django-oscar project::
 
-    ```
-    OSCAR_ORDER_STATUS_PIPELINE = {
-        'Aguardando pagamento': ('Paga', u'Em analíse', 'Cancelada'),
-        u'Em analíse': ('Paga', 'Cancelada'),
-        'Paga': ('Em disputa', 'Devolvida', u'Disponível', 'Cancelada'),
-        u'Disponível': ('Devolvida', 'Em disputa'),
-        'Em disputa': (u'Disponível', 'Devolvida', 'Paga'),
-        'Devolvida': (),
-        'Cancelada': (),
-    }
-    ```
+        url(r'^', include('oscar_pagseguro.urls')),
+
+    - And have a oscar order status pipeline that matches Pagseguro one::
+
+
+        OSCAR_ORDER_STATUS_PIPELINE = {
+            'Aguardando pagamento': ('Paga', u'Em analíse', 'Cancelada'),
+            u'Em analíse': ('Paga', 'Cancelada'),
+            'Paga': ('Em disputa', 'Devolvida', u'Disponível', 'Cancelada'),
+            u'Disponível': ('Devolvida', 'Em disputa'),
+            'Em disputa': (u'Disponível', 'Devolvida', 'Paga'),
+            'Devolvida': (),
+            'Cancelada': (),
+        }
 
 TODO
 ----
