@@ -28,20 +28,18 @@ in signals.py
 Usage
 -----
 
-    pip install django-oscar-pagseguro
+- Add the pagseguro package to the INSTALLED_APPS::
 
-    - Add the pagseguro package to the INSTALLED_APPS::
-
-        INSTALLED_APPS = [
+    INSTALLED_APPS = [
         ...
         pagseguro,
-        ]
+    ]
 
-    - Add the following url to the urls.py of the django-oscar project::
+- Add the following url to the urls.py of the django-oscar project::
 
-        url(r'^', include('oscar_pagseguro.urls')),
+    url(r'^', include('oscar_pagseguro.urls')),
 
-    - And have a oscar order status pipeline that matches Pagseguro one::
+- And have a oscar order status pipeline that matches Pagseguro one::
 
 
         OSCAR_ORDER_STATUS_PIPELINE = {
@@ -53,6 +51,16 @@ Usage
             'Devolvida': (),
             'Cancelada': (),
         }
+
+- Configure Pagseguro with fix redirection page (Página de redirecionamento
+fixa) para:
+
+    /checkout/thank-you/
+
+- Configure Pagseguro with transaction notification (Notificação de transação),
+to the following URL:
+
+    /retorno/pagseguro/
 
 TODO
 ----
