@@ -2,9 +2,9 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-oscar-pagseguro',
-    version='0.0.3',
+    version='0.0.4',
     url='https://github.com/daneoshiga/django-oscar-pagseguro',
-    download_url='https://github.com/daneoshiga/django-oscar-pagseguro/tarball/0.0.3',
+    download_url='https://github.com/daneoshiga/django-oscar-pagseguro/tarball/0.0.4',
     author="Danilo Shiga",
     author_email="daniloshiga@gmail.com",
     description=(
