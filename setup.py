@@ -1,10 +1,10 @@
-#!/usr/bin/env python
 from setuptools import setup, find_packages
 
 setup(
     name='django-oscar-pagseguro',
     version='0.0.2',
-    url='',
+    url='https://github.com/daneoshiga/django-oscar-pagseguro',
+    download_url='https://github.com/daneoshiga/django-oscar-pagseguro/tarball/0.0.2',
     author="Danilo Shiga",
     author_email="daniloshiga@gmail.com",
     description=(
@@ -32,8 +32,5 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
         'Topic :: Other/Nonlisted Topic'],
 )
