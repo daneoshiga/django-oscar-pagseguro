@@ -2,13 +2,13 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-oscar-pagseguro',
-    version='0.0.2',
+    version='0.0.3',
     url='https://github.com/daneoshiga/django-oscar-pagseguro',
-    download_url='https://github.com/daneoshiga/django-oscar-pagseguro/tarball/0.0.2',
+    download_url='https://github.com/daneoshiga/django-oscar-pagseguro/tarball/0.0.3',
     author="Danilo Shiga",
     author_email="daniloshiga@gmail.com",
     description=(
-        "Pagseguro integration paypal"),
+        "Pagseguro integration for django-oscar"),
     long_description=open('README.rst').read(),
     keywords="Payment, Pagseguro, Oscar",
     license=open('LICENSE').read(),
