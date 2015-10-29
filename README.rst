@@ -2,6 +2,9 @@
 Pagseguro package for django-oscar
 ==================================
 
+.. image:: https://badge.fury.io/py/django-oscar-pagseguro.svg
+    :target: https://badge.fury.io/py/django-oscar-pagseguro
+
 This package provides integration between django-oscar_ and Pagseguro_
 
 .. _django-oscar: https://github.com/tangentlabs/django-oscar
